@@ -1,8 +1,8 @@
 pipeline {
   agent any
     tools {
-      maven 'maven'
-                 jdk 'JDK'
+      maven 'maven3'
+                 jdk 'jdk8'
     }
     stages {      
         stage('Build maven') {
@@ -23,7 +23,7 @@ pipeline {
            steps {
                script {         
                  def customImage = docker.build('shashankadiga/samplecicd', "./docker")
-                 docker.withRegistry('https://registry.hub.docker.com', 'docker_login') {
+                 docker.withRegistry('https://registry.hub.docker.com', 'docker_id') {
                  customImage.push("${env.BUILD_NUMBER}")
                  }                     
            }
